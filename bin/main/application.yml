@@ -1,0 +1,33 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: springcloud-config-server
+  cloud:
+    consul:
+      host: consul-prd.biclub.io
+      port: 8500
+      discovery:
+        #instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+        service-name: ${spring.application.name}
+        prefer-ip-address: true
+    config:
+      server:
+        git:
+          #uri: git@github.com:tianzhaomin/config.git
+          uri: ssh://git@10.66.50.142:10022/devops/config.git
+          clone-on-start: true
+          force-pull: true
+          strict-host-key-checking: false
+          timeout: 100000
+  security:
+    user:
+      name: config
+      password: 2AIvVS25YACREOS
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
